@@ -14,17 +14,19 @@
     </table>
     <p v-show="actualIngredients.length <= 0"> There isnt any ingredient</p>
     <h1>Shop Ingredients:</h1>
-    <div
-      v-for="ingredient in Ingredients"
-      :key="ingredient.id"
-      class="ingredient">
-      <p>
-        {{ ingredient.name }}
-        <button class="default" v-on:click="addToCart(ingredient)">
-          Add to cart
-        </button>
-      </p>
-    </div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Add 1</th>
+        </tr>
+        <tr v-for="ingredient in Ingredients"
+        :key="ingredient.id">
+            <td>{{ ingredient.name }}</td>
+            <td><input type="number" style="width:50px"  v-model="ingredient.quantity" min=0 @change="ingredientQuantityChange(ingredient)"></td>
+            <td><button v-on:click="addToCart(ingredient)">Add to cart +1</button></td>
+        </tr>
+    </table>
   </div>
 
   <div class="header">
@@ -74,16 +76,24 @@ export default {
   },
   methods: {
     addToCart(item) {
-        item.quantity += 1;
+        item.quantity = parseInt(item.quantity) + 1;
         var index = this.items.indexOf(item);
         if (index > -1)
             this.items.splice(index, 1); 
         this.items.push(item);
     },
+    ingredientQuantityChange(item){
+        var index = this.items.indexOf(item);
+        if (index > -1)
+            this.items.splice(index, 1); 
+        if (item.quantity > 0)
+            this.items.push(item);
+    },
     async checkOut(){
         await BackendConection.fillInventory(this.items);
         this.items = [];
         this.downloadActualIngredients();
+        this.$router.go()
     },
     removeFromCart(item){
         item.quantity -= 1;

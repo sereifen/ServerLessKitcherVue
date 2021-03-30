@@ -14,27 +14,29 @@
             <td>{{ recipe.name }} </td>
             <td>{{ recipe.instructions }} </td>
             <td><button @click="cookRecipe(recipe.id)"><unicon name="restaurant"></unicon></button></td>
-            <td><button  @click="deleteRecipe(recipe.id)"><unicon name="trash"></unicon></button></td>
+            <td><button @click="deleteRecipe(recipe.id)"><unicon name="trash"></unicon></button></td>
         </tr>
     </table>
     <p v-show="actualRecipes.length <= 0"> There isnt any recipe</p>
   </div>
   <div class="Create Recipe">
-        <h2> Create recipe:</h2>
-        <div>
-            <p>Name: </p>
-            <input v-model="recipename" placeholder="Name">
-            <p>Instructions: </p>
-            <input v-model="instructions" placeholder="instructions">
+      <button v-show="!showCreateRecipe" @click="showCreateRecipe = !showCreateRecipe">Create Recipe</button>
+        <h2 v-show="showCreateRecipe"> Create recipe:</h2>
+        <div v-show="showCreateRecipe">
+            <p>Name: <input v-model="recipename" placeholder="Name"></p>
+            <p>Instructions: <input v-model="instructions" placeholder="Instructions"></p>
             <p>Ingredients: </p>
-            <div
-            v-for="ingredient in Ingredients"
-            :key="ingredient.id"
-            class="ingredient">
-                <p>{{ ingredient.name }}
-                    <input v-model="ingredient.quantity">
-                </p>
-            </div>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                </tr>
+                <tr v-for="ingredient in Ingredients"
+                :key="ingredient.id">
+                    <td>{{ ingredient.name }}</td>
+                    <td><input type="number" style="width:50px"  v-model="ingredient.quantity" min=0></td>
+                </tr>
+            </table>
             <button @click="summitRecipe(recipename,instructions)">summit</button>
         </div>
   </div>
@@ -48,6 +50,7 @@ export default {
   data() {
       return {
         actualRecipes: [],
+        showCreateRecipe: false
         };
   },
   methods: {      

@@ -4,10 +4,8 @@ import axios from 'axios'
 const configUrl = "https://serverless-api.3rik.se/kitchen";
 export class BackendConection {
     constructor() {}
-    static ping(){
-        axios.get(configUrl+ "/ping")
-            .then(response => (console.log(response.data)))
-            .catch(error => console.log(error));
+    static async ping(){
+        return (await axios.get(configUrl+ "/ping")).data;
     }
 
     static clear(){

@@ -23,8 +23,8 @@ import {BackendConection} from "../components/BackendConection"
 export default {
   name: 'Home',
   methods : {
-    ping(){
-      BackendConection.ping()
+    async ping(){
+      window.alert( await BackendConection.ping())
     },
     clear(){
       BackendConection.clear()
