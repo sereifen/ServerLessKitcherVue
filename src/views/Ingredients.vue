@@ -18,13 +18,13 @@
         <tr>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Add 1</th>
+            <th></th>
         </tr>
         <tr v-for="ingredient in Ingredients"
         :key="ingredient.id">
             <td>{{ ingredient.name }}</td>
             <td><input type="number" style="width:50px"  v-model="ingredient.quantity" min=0 @change="ingredientQuantityChange(ingredient)"></td>
-            <td><button v-on:click="addToCart(ingredient)">Add to cart +1</button></td>
+            <td><button v-on:click="addToCart(ingredient)"><unicon name="plus"></unicon></button></td>
         </tr>
     </table>
   </div>
@@ -52,7 +52,7 @@
       </table>
       <div>
           <button @click="checkOut()">
-              <h3>Check out<unicon name="shopping-cart"></unicon></h3>
+              Check out<unicon name="shopping-cart"></unicon>
             </button>
         </div>
     </div>
