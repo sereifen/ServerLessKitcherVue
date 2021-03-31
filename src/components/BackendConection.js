@@ -1,7 +1,8 @@
 
 import axios from 'axios'
 
-const configUrl = "https://serverless-api.3rik.se/kitchen";
+const configUrl = "https://serverlesskitchenback.azurewebsites.net";
+
 export class BackendConection {
     constructor() {}
     static async ping(){
