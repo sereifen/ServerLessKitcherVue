@@ -1,7 +1,7 @@
 
 import axios from 'axios'
 
-const configUrl = "https://serverlesskitchenback.azurewebsites.net";
+const configUrl = "https://serverless-api.3rik.se/kitchen";
 
 export class BackendConection {
     constructor() {}
